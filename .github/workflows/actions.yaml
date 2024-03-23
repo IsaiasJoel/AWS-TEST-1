@@ -11,7 +11,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
     - name: checkout
       uses: actions/checkout@v4
@@ -32,4 +32,4 @@ jobs:
       uses: docker/build-push-action@v5
       with: 
         push: true
-        tags: isaiasjoel/myapp:lastest
+        tags: isaiasjoel/myapp:latest
