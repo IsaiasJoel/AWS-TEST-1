@@ -1,0 +1,35 @@
+name: example
+on:
+  push:
+    branches:
+    - main
+
+env:
+  #DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+  #DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+  SSH_KEYPAIR: ${{secrets.SSH_KEYPAIR}}
+
+jobs:
+  build:
+    runs-on: ubuntu-lastest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: setup docker build buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: login to Docker Hub
+      uses: docker/login-action@v3
+      with: 
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN  }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with: 
+        push: true
+        tags: isaiasjoel/myapp:lastest
